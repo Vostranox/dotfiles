@@ -1,0 +1,163 @@
+configuration {
+  modi: "drun,run,window";
+  show-icons: true;
+  drun-display-format: "{name}";
+  display-drun: "";
+  display-run: "";
+  display-window: "";
+  sidebar-mode: false;
+  disable-history: false;
+  case-sensitive: false;
+  kb-row-down: "Control+a";
+  kb-row-up: "Control+e";
+  kb-move-front: ",";
+  kb-move-end: "Control+z";
+}
+
+* {
+  bg0: #181818;
+  bg1: #222222;
+  bg2: #2e2e2e;
+  bg3: #3a3a3a;
+  fg0: #c8c8d5;
+  acc: #95a99f;
+  urg: #96a6c8;
+  font: "JetBrainsMono Nerd Font Mono 11";
+  text-color: @fg0;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+}
+
+window {
+  background-color: rgba(24,24,24,0.94);
+  border: 0;
+  border-radius: 0;
+  width: 880px;
+  padding: 0;
+}
+
+mainbox {
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+  children: [inputbar, listview];
+}
+
+separator {
+  enabled: false;
+  background-color: @bg1;
+  foreground: @bg1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+inputbar {
+  margin: 0;
+  padding: 8px 12px;
+  spacing: 8px;
+  background-color: @bg1;
+  border: 1px;
+  border-color: @bg3;
+  border-radius: 0;
+  children: [prompt, entry];
+}
+
+prompt {
+  text-color: @acc;
+  padding: 0;
+  margin: 0;
+}
+
+entry {
+  placeholder: "Search…";
+  text-color: @fg0;
+  placeholder-color: @fg0;
+  padding: 0;
+  margin: 0;
+}
+
+message {
+  margin: 6px 0 0;
+  padding: 6px 10px;
+  background-color: @bg1;
+  border: 1px;
+  border-color: @bg3;
+  border-radius: 0;
+}
+
+textbox {
+  padding: 0;
+  margin: 0;
+}
+
+listview {
+  margin-top: 0px;
+  padding-top: 0px;
+  background-color: @bg1;
+  fixed-height: false;
+  dynamic: true;
+  scrollbar: false;
+  columns: 1;
+  lines: 9;
+}
+
+element {
+  padding: 6px 10px;
+  border-radius: 0;
+  background-color: @bg1;
+  spacing: 8px;
+}
+
+element normal.normal,
+element alternate.normal {
+  background-color: @bg1;
+  text-color: @fg0;
+}
+
+element selected.normal,
+element selected.alternate,
+element selected.active,
+element selected.urgent {
+  background-color: @bg2;
+  text-color: @fg0;
+  border: 1px;
+  border-color: @bg3;
+}
+
+element normal.active,
+element alternate.active {
+  background-color: @bg1;
+  text-color: @acc;
+}
+
+element normal.urgent,
+element alternate.urgent {
+  background-color: @bg1;
+  text-color: @urg;
+}
+
+element-text {
+  background-color: inherit;
+  text-color: inherit;
+  vertical-align: 0.5;
+}
+
+element-icon {
+  size: 20px;
+  vertical-align: 0.5;
+}
+
+buttonbox,
+mode-switcher,
+listview,
+inputbar,
+mainbox,
+prompt,
+entry,
+textbox,
+message {
+  margin: 0;
+}
