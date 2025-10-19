@@ -1,0 +1,33 @@
+[delta "gruber-material-dark-intense"]
+    dark = true
+    blame-palette = "#181818 #282828 #3e3b3c #484848 #52494e"
+    commit-decoration-style = "#6b7570" bold box ul
+    file-decoration-style = "#6b7570" bold
+    hunk-header-decoration-style = "#6b7570" box ul
+    file-style = "#c8c8d5" bold
+    hunk-header-file-style = "#c8c8d5" bold
+    hunk-header-line-number-style = "#6b7570" bold
+    hunk-header-style = file line-number syntax
+    line-numbers-left-style = "#6b7570"
+    line-numbers-right-style = "#6b7570"
+    line-numbers-zero-style = "#52494e"
+    line-numbers-minus-style = "#e45457" bold
+    line-numbers-plus-style = "#87bc61" bold
+    minus-style = "#e45457" "#181818"
+    minus-emph-style = bold "#e45457" "#493030"
+    plus-style = "#87bc61" "#181818"
+    plus-emph-style = bold "#87bc61" "#2d3a2f"
+    whitespace-error-style = "#e45457" reverse
+    syntax-theme = gruber-material-dark-intense
+[core]
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    side-by-side = true
+    features = gruber-material-dark-intense
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
