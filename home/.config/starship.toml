@@ -1,0 +1,32 @@
+format = """
+  $username\
+  $hostname\
+  $directory\
+  $git_branch\
+  $git_commit\
+  $git_state\
+  $git_metrics\
+  $line_break\
+  $character"""
+
+palette = 'gruber-material-dark'
+
+[palettes.gruber-material-dark]
+color_fg0 = '#c8c8d5'
+color_bg1 = '#181818'
+color_bg3 = '#282828'
+color_blue = '#95a99f'
+color_aqua = '#96a6c8'
+color_green = '#95a99f'
+color_orange = '#9e95c7'
+color_purple = '#9e95c7'
+color_red = '#e45457'
+color_yellow = '#f0ca54'
+
+[character]
+success_symbol = '[[λ](fg:color_green) ❯](bold fg:color_green)'
+error_symbol = '[[λ](fg:color_red) ❯](bold fg:color_red)'
+vimcmd_symbol = '[[λ](fg:color_green) ❮](bold fg:color_green)'
+vimcmd_replace_one_symbol = '[[λ](fg:color_purple) ❮](bold fg:color_purple)'
+vimcmd_replace_symbol = '[[λ](fg:color_purple) ❮](bold fg:color_purple)'
+vimcmd_visual_symbol = '[[λ](fg:color_yellow) ❮](bold fg:color_yellow)'

@@ -1,0 +1,57 @@
+[colors.bright]
+black = "#282828"
+blue = "#95a99f"
+cyan = "#96a6c8"
+green = "#87bc61"
+magenta = "#9e95c7"
+red = "#e45457"
+white = "#c8c8d5"
+yellow = "#f0ca54"
+
+[colors.normal]
+black = "#282828"
+blue = "#95a99f"
+cyan = "#96a6c8"
+green = "#87bc61"
+magenta = "#9e95c7"
+red = "#e45457"
+white = "#c8c8d5"
+yellow = "#f0ca54"
+
+[colors.primary]
+background = "#181818"
+foreground = "#c8c8d5"
+
+[colors.cursor]
+cursor = "#f0ca54"
+text = "#181818"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 7.5
+
+[font.normal]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Normal"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Bold"
+
+[scrolling]
+history = 100000
+
+[window]
+opacity = 1.0
+decorations = "none"
+
+[window.padding]
+x = 15
+y = 5
+
+[[keyboard.bindings]]
+  key = "U"
+  mods = "Control"
+  action = "Paste"

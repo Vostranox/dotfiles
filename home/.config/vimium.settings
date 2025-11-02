@@ -1,0 +1,24 @@
+map o scrollPageDown
+map u scrollPageUp
+
+map h goBack
+map a scrollDown
+map e scrollUp
+map i goForward
+map E previousTab
+map A nextTab
+
+map , performFind
+map . performBackwardsFind
+
+map l reload
+map c Vomnibar.activate
+map C Vomnibar.activateInNewTab
+
+map r LinkHints.activateMode
+map R LinkHints.activateModeToOpenInNewTab
+map t enterInsertMode
+map s enterFindMode
+
+map + scrollToTop
+map - scrollToBottom

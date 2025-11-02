@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+fd "$1" -IH --type file --sort-by-depth --exclude .git | \
+fzf \
+    --style full \
+    --prompt '> ' \
+    --layout=reverse \
+    --info=inline \
+    --border \
+    --margin=1 \
+    --padding=1 \
+    --preview='bat --color=always {}' \
+    --bind 'enter:become(emacsclient -n {1})'
