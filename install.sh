@@ -6,7 +6,7 @@ if [[ $# -ne 2 ]]; then
     exit 1
 fi
 
-cp -r ./home/.local/ ./home/.config/ ./home/.bashrc ~/
+cp -r ./home/bin/ ./home/.config/ ./home/.bashrc ~/
 
 sudo pacman -S --noconfirm --needed git
 
