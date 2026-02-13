@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MOUNTPOINT="$HOME/iphone"
+
+if ! systemctl is-active --quiet usbmuxd; then
+    echo "Starting usbmuxd..."
+    sudo systemctl start usbmuxd
+fi
+
+if mountpoint -q "$MOUNTPOINT"; then
+    echo "Device is currently mounted. Attempting to unmount..."
+    if fusermount -u "$MOUNTPOINT"; then
+        echo "Successfully unmounted."
+    else
+        echo "Error: Could not unmount. Is a file or folder still open?"
+        exit 1
+    fi
+else
+    echo "Device is not mounted. Attempting to mount..."
+    mkdir -p "$MOUNTPOINT"
+    if ! ideviceinfo >/dev/null 2>&1; then
+        echo "Error: No trusted iPhone detected. Check cable/pairing."
+        exit 1
+    fi
+    if ifuse "$MOUNTPOINT"; then
+        echo "Successfully mounted at $MOUNTPOINT"
+    else
+        echo "Error: ifuse failed to mount the device."
+        exit 1
+    fi
+fi

@@ -27,13 +27,17 @@ ghc-static
 ghidra
 git-delta
 gnome-boxes
+gvfs
+gvfs-afc
 haskell-language-server
 htop
 i3lock
+ifuse
 lib32-mesa
 lib32-nvidia-utils
 lib32-opencl-nvidia
 lib32-vulkan-icd-loader
+libimobiledevice
 lld
 lldb
 llvm
@@ -73,6 +77,7 @@ telegram-desktop
 tmux
 tree
 ttf-jetbrains-mono-nerd
+usbmuxd
 vlc
 xf86-input-libinput
 xf86-video-vesa
