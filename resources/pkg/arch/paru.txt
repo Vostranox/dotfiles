@@ -2,6 +2,7 @@ alacritty
 alsa-firmware
 alsa-plugins
 alsa-utils
+anthy
 bash-completion
 bashtop
 bat
@@ -19,6 +20,7 @@ cmake
 cmatrix
 cpupower
 ddcutil
+dotnet-sdk
 emacs
 eza
 fzf
@@ -32,6 +34,7 @@ gvfs-afc
 haskell-language-server
 htop
 i3lock
+ibus-anthy
 ifuse
 lib32-mesa
 lib32-nvidia-utils
