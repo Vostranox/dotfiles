@@ -35,10 +35,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_j     ), sendMessage $ Toggle MIRROR)
     , ((modm,               xK_w     ), withFocused $ windows . W.sink)
     , ((modm,               xK_a     ), windows W.focusDown)
-    , ((modm,               xK_e     ), windows W.focusUp  )
-    , ((modm .|. shiftMask, xK_a     ), windows W.swapDown  )
-    , ((modm .|. shiftMask, xK_e     ), windows W.swapUp    )
-    , ((modm,               xK_p     ), windows W.focusMaster  )
+    , ((modm,               xK_e     ), windows W.focusUp)
+    , ((modm .|. shiftMask, xK_a     ), windows W.swapDown)
+    , ((modm .|. shiftMask, xK_e     ), windows W.swapUp)
+    , ((modm,               xK_p     ), windows W.focusMaster)
     , ((modm,               xK_Return), windows W.swapMaster)
     , ((modm,               xK_h     ), sendMessage Shrink)
     , ((modm,               xK_i     ), sendMessage Expand)
@@ -50,6 +50,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ++
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_n, xK_r, xK_t, xK_s, xK_g]
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    ++
+    [((m .|. modm, k), windows $ f i)
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1, xK_2, xK_3, xK_3, xK_4, xK_5]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f) >> (Warp.warpToWindow 0.5 0.5))
@@ -99,9 +103,9 @@ myStartupHook = do
   spawnOnce "nm-applet"
   spawnOnce "caffeine"
   spawnOnce "/usr/lib/polkit-kde-authentication-agent-1"
-  spawnOn "1" "emacs"
-  spawnOn "2" "alacritty"
   spawnOn "3" "zen-browser"
+  spawnOn "2" "alacritty"
+  spawnOn "1" "emacs"
 
 main = xmonad $ ewmhFullscreen $ ewmh $ docks $ defaults
 
