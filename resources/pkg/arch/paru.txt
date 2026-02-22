@@ -70,6 +70,7 @@ power-profiles-daemon
 proton-mail-bin
 proton-pass-bin
 proton-vpn-gtk-app
+protonmail-bridge
 python-pip
 qt6ct
 ripgrep
