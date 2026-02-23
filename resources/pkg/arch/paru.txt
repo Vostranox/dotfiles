@@ -78,6 +78,7 @@ scrot
 starship
 steam
 telegram-desktop
+thunderbird
 tmux
 tree
 ttf-jetbrains-mono-nerd
