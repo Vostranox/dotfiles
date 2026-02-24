@@ -44,8 +44,15 @@ vim.opt.listchars      = {
     nbsp = "␣",
     space = "·",
 }
+vim.opt.path:append("**")
 
 vim.cmd [[match TrailingSpace /\s\+$/]]
+
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local ok = pcall(vim.treesitter.start, args.buf)
+  end,
+})
 
 vim.g.mapleader   = ' '
 vim.g.localleader = ' '
