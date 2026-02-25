@@ -6,11 +6,14 @@ anthy
 bash-completion
 bashtop
 bat
+base
+base-devel
 blueman
 bluez
 bluez-hid2hci
 bluez-libs
 bluez-utils
+brightnessctl
 btop
 cabal-install
 caffeine
@@ -22,6 +25,8 @@ cpupower
 ddcutil
 dotnet-sdk
 emacs
+exfatprogs
+exiftool
 eza
 fzf
 gdb
