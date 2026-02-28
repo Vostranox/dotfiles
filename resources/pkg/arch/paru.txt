@@ -3,11 +3,11 @@ alsa-firmware
 alsa-plugins
 alsa-utils
 anthy
+base
+base-devel
 bash-completion
 bashtop
 bat
-base
-base-devel
 blueman
 bluez
 bluez-hid2hci
@@ -68,6 +68,7 @@ pavucontrol
 perl
 pipewire-alsa
 pipewire-pulse
+playerctl
 plocate
 polkit-kde-agent
 polybar
