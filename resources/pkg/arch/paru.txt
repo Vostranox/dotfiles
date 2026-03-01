@@ -66,6 +66,7 @@ opencl-nvidia
 pacman-contrib
 pavucontrol
 perl
+picom
 pipewire-alsa
 pipewire-pulse
 playerctl

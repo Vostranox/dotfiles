@@ -6,6 +6,7 @@ import XMonad.Actions.SpawnOn
 import XMonad.Layout.Spacing
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.Tabbed
 import XMonad.Layout.NoBorders
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
@@ -24,28 +25,44 @@ myNormalBorderColor  = "#484848"
 myFocusedBorderColor = "#95a99f"
 myWorkspaces         = ["1","2","3","4","5"]
 
+myTabConfig = def
+  { fontName            = "xft:JetBrains Mono:size=7"
+  , activeColor         = "#353a39"
+  , inactiveColor       = "#282828"
+  , urgentColor         = "#e45457"
+  , activeTextColor     = "#c8c8d5"
+  , inactiveTextColor   = "#c8c8d5"
+  , urgentTextColor     = "#ffffff"
+  , activeBorderColor   = "#52494e"
+  , inactiveBorderColor = "#282828"
+  , urgentBorderColor   = "#e45457"
+  , activeBorderWidth   = 0
+  , inactiveBorderWidth = 0
+  , urgentBorderWidth   = 0
+  , decoHeight          = 20 }
+
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm,               xK_Return), windows W.swapMaster)
+    , ((modm,               xK_space ), sendMessage NextLayout)
     , ((modm,               xK_c     ), spawn "dmenu_run")
-    , ((modm,               xK_x     ), kill)
     , ((modm,               xK_d     ), spawn "if pgrep polybar; then killall polybar; else polybar; fi")
     , ((modm,               xK_l     ), spawn "i3lock -c 000000")
     , ((modm,               xK_q     ), spawn "i3lock -c 000000; sleep 2; systemctl suspend")
-    , ((modm,               xK_space ), sendMessage NextLayout)
-    , ((modm,               xK_j     ), sendMessage $ Toggle MIRROR)
+    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
     , ((modm,               xK_w     ), withFocused $ windows . W.sink)
+    , ((modm,               xK_m     ), sendMessage $ Toggle MIRROR)
+    , ((modm,               xK_x     ), kill)
+    , ((modm,               xK_z     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm,               xK_h     ), sendMessage Shrink)
     , ((modm,               xK_a     ), windows W.focusDown)
     , ((modm,               xK_e     ), windows W.focusUp)
+    , ((modm,               xK_i     ), sendMessage Expand)
     , ((modm .|. shiftMask, xK_a     ), windows W.swapDown)
     , ((modm .|. shiftMask, xK_e     ), windows W.swapUp)
     , ((modm,               xK_p     ), windows W.focusMaster)
-    , ((modm,               xK_Return), windows W.swapMaster)
-    , ((modm,               xK_h     ), sendMessage Shrink)
-    , ((modm,               xK_i     ), sendMessage Expand)
     , ((modm,               xK_comma ), sendMessage (IncMasterN 1))
     , ((modm,               xK_period), sendMessage (IncMasterN (-1)))
-    , ((modm,               xK_z     ), spawn "xmonad --recompile; xmonad --restart")
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
     ]
     ++
     [((m .|. modm, k), windows $ f i)
@@ -77,12 +94,16 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
                                        >> windows W.shiftMaster))]
 
-myLayout = avoidStruts $ smartSpacingWithEdge 10 $ mkToggle (single MIRROR) $ (noBorders Full ||| smartBorders tiled)
+myLayout = avoidStruts $ mkToggle (single MIRROR) layoutList
   where
-    nmaster = 1
-    ratio   = 1/2
-    delta   = 3/100
-    tiled   = Tall nmaster delta ratio
+    layoutList =
+           noBorders (tabbed shrinkText myTabConfig)
+       ||| tiledLayout
+       ||| noBorders Full
+    tiledLayout =
+           smartBorders
+         $ smartSpacingWithEdge 10
+         $ Tall 1 (3/100) (1/2)
 
 myManageHook = composeAll
                [ manageSpawn
