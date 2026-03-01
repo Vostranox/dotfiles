@@ -117,12 +117,12 @@ myEventHook = mempty
 myLogHook = return ()
 
 myStartupHook = do
-  spawnOnce "nitrogen --restore"
   spawnOnce "xrdb -merge ~/.Xresources"
   spawnOnce "xsetroot -cursor_name left_ptr"
-  spawnOnce "blueman-applet"
   spawnOnce "nm-applet"
-  spawnOnce "caffeine"
+  spawnOnce "blueman-applet"
+  spawnOnce "nitrogen --restore"
+  spawnOnce "protonmail-bridge --no-window"
   spawnOnce "/usr/lib/polkit-kde-authentication-agent-1"
   spawnOn "3" "zen-browser"
   spawnOn "2" "alacritty"
