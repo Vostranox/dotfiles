@@ -33,12 +33,12 @@ myTabConfig = def
   , activeTextColor     = "#c8c8d5"
   , inactiveTextColor   = "#c8c8d5"
   , urgentTextColor     = "#ffffff"
-  , activeBorderColor   = "#52494e"
-  , inactiveBorderColor = "#282828"
+  , activeBorderColor   = "#6b7570"
+  , inactiveBorderColor = "#3e3b3c"
   , urgentBorderColor   = "#e45457"
-  , activeBorderWidth   = 0
-  , inactiveBorderWidth = 0
-  , urgentBorderWidth   = 0
+  , activeBorderWidth   = 1
+  , inactiveBorderWidth = 1
+  , urgentBorderWidth   = 1
   , decoHeight          = 20 }
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
