@@ -80,6 +80,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((0, xF86XK_AudioMute),         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
     , ((0, xF86XK_AudioLowerVolume),  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
     , ((0, xF86XK_AudioRaiseVolume),  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+    , ((0, xF86XK_AudioMicMute),      spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
     , ((0, xF86XK_MonBrightnessUp),   spawn "brightnessctl set +5%")
     , ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-")
     , ((0, xF86XK_AudioPlay),         spawn "playerctl play-pause")
@@ -127,6 +128,9 @@ myStartupHook = do
   spawnOn "3" "zen-browser"
   spawnOn "2" "alacritty"
   spawnOn "1" "emacs"
+  -- spawnOnce "picom"
+  -- spawnOnce "xss-lock -- i3lock -c 000000"
+  -- spawnOnce "xinput set-prop 'NAME Touchpad' 'libinput Tapping Enabled' 1" -- xinput list
 
 main = xmonad $ ewmhFullscreen $ ewmh $ docks $ defaults
 
