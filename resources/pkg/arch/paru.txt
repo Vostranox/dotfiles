@@ -83,6 +83,7 @@ python-pip
 qt6ct
 ripgrep
 scrot
+signal-desktop
 starship
 steam
 telegram-desktop
