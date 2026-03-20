@@ -83,6 +83,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0, xF86XK_AudioMicMute),      spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
     , ((0, xF86XK_MonBrightnessUp),   spawn "brightnessctl set +5%")
     , ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-")
+    , ((0, xK_Print),                 spawn "scrot -s -o $HOME/Pictures/screenshots/%Y-%m-%d_\\$wx\\$h.png")
     , ((0, xF86XK_AudioPlay),         spawn "playerctl play-pause")
     , ((0, xF86XK_AudioNext),         spawn "playerctl next")
     , ((0, xF86XK_AudioPrev),         spawn "playerctl previous")
