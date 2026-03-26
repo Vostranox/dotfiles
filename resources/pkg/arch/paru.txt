@@ -87,6 +87,7 @@ signal-desktop
 starship
 steam
 telegram-desktop
+thunar
 thunderbird
 tmux
 tree
