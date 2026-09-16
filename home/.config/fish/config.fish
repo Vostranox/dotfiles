@@ -23,7 +23,7 @@ if status is-interactive
     starship init fish | source
     zoxide init --cmd cd fish | source
 
-    function wls_zoxide_cdi --description 'cd to a directory from the Windows-side zoxide db'
+    function wsl_zoxide_cdi --description 'cd to a directory from the Windows-side zoxide db'
         set -l dir (zoxide.exe query --list | fzf --height=30)
         or return
         test -n "$dir"; or return

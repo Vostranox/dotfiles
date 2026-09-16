@@ -37,7 +37,7 @@ eval "$(fzf --bash)"
 eval "$(starship init bash)"
 eval "$(zoxide init --cmd cd bash)"
 
-wls_zoxide_cdi() {
+wsl_zoxide_cdi() {
     local dir target
     dir=$(zoxide.exe query --list | fzf --height=30) || return
     [ -z "$dir" ] && return
