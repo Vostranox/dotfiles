@@ -1,0 +1,8 @@
+[Hotkey/TriggerKeys]
+0=Super+Shift+space
+
+[Hotkey]
+EnumerateWithTriggerKeys=True
+
+[Behavior]
+ShareInputState=All

@@ -7,13 +7,12 @@ if [[ $# -ne 2 ]]; then
 fi
 
 mkdir -p "$HOME/opt"
-cp -r ./home/.config ./home/.bashrc ./home/.Xresources ~/
+cp -r ./home/.config ./home/.local ./home/.bashrc ./home/.bash_profile ./home/.profile ~/
 
 ./scripts/pacman_setup.sh
 ./scripts/rust_setup.sh
 ./scripts/paru_setup.sh
 ./scripts/fd_setup.sh
-./scripts/dmenu_setup.sh
 ./scripts/git_setup.sh "$1" "$2"
 ./scripts/emacs_setup.sh
 ./scripts/tmux_setup.sh

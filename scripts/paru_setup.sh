@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if ! command -v paru &> /dev/null; then
-    git clone https://aur.archlinux.org/paru.git "$HOME/opt/paru"
+    [[ -d "$HOME/opt/paru/.git" ]] || git clone https://aur.archlinux.org/paru.git "$HOME/opt/paru"
     pushd "$HOME/opt/paru" >/dev/null
     makepkg -si --noconfirm
     popd >/dev/null

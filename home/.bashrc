@@ -1,9 +1,5 @@
 [[ $- != *i* ]] && return
 
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
 HISTCONTROL=ignoreboth
 HISTSIZE=1000000
 HISTFILESIZE=1000000
@@ -14,18 +10,6 @@ shopt -s lithist
 
 PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-
-export EDITOR="emacsclient"
-export VISUAL="emacsclient -n"
-
-export FZF_CTRL_T_COMMAND="$HOME/.cargo/bin/fd --sort-by-depth --full-path --hidden --no-ignore --color=never --exclude .git"
-export FZF_DEFAULT_OPTS="--layout=reverse --info=inline --border --margin=1 --padding=1 -i"
-
-export EZA_CONFIG_DIR="$HOME/.config/eza"
-
 alias ls='eza -alg --color=always --group-directories-first'
 alias ll='eza -lg --color=always --group-directories-first'
 alias vim='nvim'
@@ -33,17 +17,9 @@ alias ..='cd ..'
 alias e='emacsclient -n'
 alias tx='tmux new -As dev'
 
-eval "$(fzf --bash)"
-eval "$(starship init bash)"
-eval "$(zoxide init --cmd cd bash)"
-
-wsl_zoxide_cdi() {
-    local dir target
-    dir=$(zoxide.exe query --list | fzf --height=30) || return
-    [ -z "$dir" ] && return
-    target=$(wslpath -u "$dir" 2>/dev/null || echo "$dir")
-    cd -- "$target" || return
-}
+command -v fzf >/dev/null && eval "$(fzf --bash)"
+command -v starship >/dev/null && eval "$(starship init bash)"
+command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
 bind -m emacs '"\eh": backward-char'
 bind -m emacs '"\ei": forward-char'

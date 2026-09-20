@@ -3,7 +3,6 @@ set -euo pipefail
 
 git config --global user.name "$1"
 git config --global user.email "$2"
-git config --global core.editor "emacsclient -n"
 git config --global init.defaultBranch main
 
 DELTA_CFG="$HOME/.config/delta/config"
