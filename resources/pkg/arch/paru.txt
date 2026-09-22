@@ -25,6 +25,7 @@ cmake
 cmatrix
 cpupower
 ddcutil
+digikam
 dotnet-sdk
 emacs
 exfatprogs
@@ -45,6 +46,7 @@ ghostty
 git-delta
 gnome-boxes
 grim
+gthumb
 gvfs
 gvfs-afc
 haskell-language-server
