@@ -118,6 +118,18 @@ Singleton {
         return out;
     }
 
+    Timer {
+        id: toplevelSettle
+        interval: 400
+        repeat: true
+        triggeredOnStart: false
+        property int tries: 0
+        onRunningChanged: if (running) tries = 0
+        onTriggered: {
+            Hyprland.refreshToplevels();
+            if (++tries >= 4) running = false;
+        }
+    }
     property var mru: []
 
     function noteFocus(t) {
@@ -130,6 +142,9 @@ Singleton {
 
     Instantiator {
         model: Hyprland.toplevels
+
+        onObjectAdded: toplevelSettle.restart()
+
         delegate: Connections {
             required property var modelData
             target: modelData
@@ -140,6 +155,8 @@ Singleton {
     }
 
     function switchOpen() {
+        Hyprland.refreshToplevels();
+
         const live = root.liveToplevels();
         const byAddr = {};
         for (const t of live) byAddr[t.address] = t;

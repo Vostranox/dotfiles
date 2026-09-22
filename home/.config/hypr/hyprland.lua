@@ -45,6 +45,12 @@ hl.on("config.reloaded", startHypridle)
 ---- AUTOSTART ----
 -------------------
 
+swapOverviewGestures = nil
+function overviewGestures(on)
+    if swapOverviewGestures then swapOverviewGestures(on) end
+    return hl.dsp.event("overviewgestures," .. tostring(on))
+end
+
 hl.on("hyprland.start", function ()
   hl.exec_cmd("protonmail-bridge --no-window")
   startHypridle()
@@ -232,20 +238,75 @@ if LAPTOP then
             natural_scroll = true,
             scroll_factor  = 0.8,
         }},
+
+        gestures = {
+            workspace_swipe_distance     = 400,
+            workspace_swipe_cancel_ratio = 0.3,
+        },
     })
 
-    hl.gesture({
-        fingers   = 3,
-        direction = "horizontal",
-        action    = "workspace",
-        scale     = 1.6,
-    })
+    local SWIPE_SCALE    = 1.0
+    local OVERVIEW_SCALE = 1.6
+    local OVERVIEW_STEP  = 110
+    local overviewAccum  = 0
+
+    local function stepOverview(n)
+        hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell overviewStep " .. n))
+    end
+
+    local function bindWorkspaceSwipe()
+        hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace", scale = SWIPE_SCALE })
+    end
+
+    local function bindOverviewSwipe()
+        hl.gesture({
+            fingers   = 3,
+            direction = "horizontal",
+            scale     = OVERVIEW_SCALE,
+            action    = {
+                start  = function() overviewAccum = 0 end,
+                update = function(e)
+                    overviewAccum = overviewAccum + ((e.delta and e.delta.x) or 0)
+                    while overviewAccum >= OVERVIEW_STEP do
+                        overviewAccum = overviewAccum - OVERVIEW_STEP
+                        stepOverview(1)
+                    end
+                    while overviewAccum <= -OVERVIEW_STEP do
+                        overviewAccum = overviewAccum + OVERVIEW_STEP
+                        stepOverview(-1)
+                    end
+                end,
+            },
+        })
+    end
+
+    bindWorkspaceSwipe()
+
+    -- removeGesture matches on scale, so each unset must name the scale the
+    -- gesture it removes was bound with.
+    swapOverviewGestures = function(on)
+        if on then
+            hl.gesture({ fingers = 3, direction = "horizontal", action = "unset", scale = SWIPE_SCALE })
+            bindOverviewSwipe()
+        else
+            hl.gesture({ fingers = 3, direction = "horizontal", action = "unset", scale = OVERVIEW_SCALE })
+            bindWorkspaceSwipe()
+        end
+    end
 
     hl.gesture({
         fingers   = 3,
         direction = "up",
         action    = function()
             hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell overview"))
+        end,
+    })
+
+    hl.gesture({
+        fingers   = 3,
+        direction = "down",
+        action    = function()
+            hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell overviewActivate"))
         end,
     })
 end
