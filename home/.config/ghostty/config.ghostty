@@ -1,6 +1,9 @@
 macos-option-as-alt = true
 
-window-decoration = none
+window-decoration      = none
+window-padding-y       = 10
+window-padding-balance = true
+window-padding-color   = extend
 
 background-blur    = true
 background-opacity = 1.0

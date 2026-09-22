@@ -10,6 +10,10 @@ PanelWindow {
     required property var modelData
     screen: modelData
 
+    readonly property int inset:   3
+    readonly property int islandH: Theme.barHeight - inset * 2
+    readonly property int edge:    Theme.pad
+
     anchors { top: true; left: true; right: true }
     visible: ShellState.barVisible
     implicitHeight: Theme.barHeight
@@ -19,6 +23,12 @@ PanelWindow {
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "qs-bar"
+
+    mask: Region {
+        Region { item: leftIsland }
+        Region { item: centreIsland }
+        Region { item: rightIsland }
+    }
 
     PopupWindow {
         id: tip
@@ -48,24 +58,44 @@ PanelWindow {
         }
     }
 
-    Rectangle {
-        anchors.fill: parent
+    component Island: Rectangle {
+        y: bar.inset
+        implicitHeight: bar.islandH
+        radius: Theme.radius
         color: Theme.bg
+        border.color: Theme.border
+        border.width: 1
+    }
 
-        Rectangle {
-            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-            height: 1
-            color: Theme.surface
-        }
+    Island {
+        id: leftIsland
+        x: bar.edge
+        implicitWidth: ws.implicitWidth + Theme.pad * 1.6
+        Workspaces { id: ws; anchors.centerIn: parent }
+    }
 
-        Workspaces {
-            anchors { left: parent.left; verticalCenter: parent.verticalCenter; leftMargin: Theme.pad * 1.6 }
-        }
+    Island {
+        id: centreIsland
+        x: Math.round((bar.width - width) / 2)
+        implicitWidth: clk.implicitWidth + Theme.pad * 1.6
+        Clock { id: clk; anchors.centerIn: parent }
+    }
 
-        Clock { anchors.centerIn: parent }
+    Island {
+        id: rightIsland
+        readonly property int padL: 18
+        readonly property int padR: Theme.gap
+
+        x: bar.width - width - bar.edge
+        implicitWidth: rightRow.implicitWidth + padL + padR
 
         RowLayout {
-            anchors { right: parent.right; verticalCenter: parent.verticalCenter; rightMargin: Theme.pad }
+            id: rightRow
+            anchors {
+                left: parent.left
+                leftMargin: rightIsland.padL
+                verticalCenter: parent.verticalCenter
+            }
             spacing: Theme.pad * 1.4
 
             Status {}
