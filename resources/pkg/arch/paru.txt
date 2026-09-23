@@ -112,6 +112,7 @@ ttf-jetbrains-mono-nerd
 upower
 usbmuxd
 vlc
+vlc-plugin-ffmpeg
 wf-recorder
 wireplumber
 wl-clipboard

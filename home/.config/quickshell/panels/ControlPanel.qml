@@ -479,10 +479,9 @@ PanelWindow {
                     function navRight() { navCol = (navCol + 1) % actions.length; }
                     function navActivate() { mediaRow.fire(actions[navCol][1]); }
                     function fire(what) {
-                        if (!win.player) return;
-                        if (what === "prev") win.player.previous();
-                        else if (what === "next") win.player.next();
-                        else win.player.togglePlaying();
+                        if (what === "prev") Media.prev();
+                        else if (what === "next") Media.next();
+                        else Media.toggle();
                     }
 
                     Repeater {

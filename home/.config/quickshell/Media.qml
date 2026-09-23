@@ -26,5 +26,10 @@ Singleton {
 
     function toggle() { if (root.player) root.player.togglePlaying(); }
     function next()   { if (root.player) root.player.next(); }
-    function prev()   { if (root.player) root.player.previous(); }
+    function prev() {
+        const p = root.player;
+        if (!p) return;
+        if (p.canSeek && (p.position > 3 || !p.canGoPrevious)) p.position = 0;
+        else p.previous();
+    }
 }
