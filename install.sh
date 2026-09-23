@@ -6,8 +6,10 @@ if [[ $# -ne 2 ]]; then
     exit 1
 fi
 
+cd "$(dirname "$0")"
+
 mkdir -p "$HOME/opt"
-cp -r ./home/.config ./home/.local ./home/.bashrc ./home/.bash_profile ./home/.profile ~/
+cp -r ./home/.config ./home/.local ./home/.bashrc ./home/.bash_profile ./home/.profile ./home/.zprofile ./home/.zshrc ~/
 
 ./scripts/pacman_setup.sh
 ./scripts/rust_setup.sh

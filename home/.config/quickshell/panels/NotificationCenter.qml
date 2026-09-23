@@ -10,7 +10,7 @@ PanelWindow {
     id: win
     required property var modelData
     screen: modelData
-    visible: ShellState.panel === "notifications"
+    visible: ShellState.panelOn("notifications", modelData)
 
     anchors { top: true; left: true; right: true; bottom: true }
     color: "transparent"
@@ -187,6 +187,12 @@ PanelWindow {
                                     text: "×"
                                     color: entry.navSelected || ema.containsMouse ? Theme.urgent : Theme.textDim
                                     font.family: Theme.font; font.pixelSize: Theme.fontSize + 2
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        anchors.margins: -6
+                                        cursorShape: Qt.PointingHandCursor
+                                        onClicked: entry.navDismiss()
+                                    }
                                 }
                             }
                         }

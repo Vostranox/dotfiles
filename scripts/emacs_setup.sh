@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ -f "$HOME/.cargo/env" ]]; then
+    source "$HOME/.cargo/env"
+fi
+
 if [[ ! -d "$HOME/.emacs.d" ]]; then
     git clone https://github.com/Vostranox/adhoc-emacs.git "$HOME/.emacs.d"
 else

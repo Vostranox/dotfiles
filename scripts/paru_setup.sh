@@ -8,7 +8,7 @@ if ! command -v paru &> /dev/null; then
     popd >/dev/null
 fi
 
-/usr/bin/paru -S --needed --noconfirm $(<./resources/pkg/arch/paru.txt)
+/usr/bin/paru -S --needed --noconfirm $(<"$(dirname "$0")/../resources/pkg/arch/paru.txt")
 
 sudo systemctl start plocate-updatedb.service
 sudo systemctl enable --now plocate-updatedb.timer

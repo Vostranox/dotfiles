@@ -101,7 +101,8 @@ ShellRoot {
         target: Brightness
         function onPercentChanged() {
             if (!root.ready || !Brightness.available) return;
-            ShellState.osd("󰃠", Brightness.percent, false);
+            if (!Brightness.quiet) ShellState.osd("󰃠", Brightness.percent, false);
+            else if (ShellState.osdVisible && ShellState.osdIcon === "󰃠") ShellState.osdValue = Brightness.percent;
         }
     }
 
@@ -118,6 +119,10 @@ ShellRoot {
 
         function screenshot(): void { ShellState.toggle("screenshot"); }
         function stopRecording(): void { Recorder.stop(); }
+
+        function mediaToggle(): void { Media.toggle(); }
+        function mediaNext():   void { Media.next(); }
+        function mediaPrev():   void { Media.prev(); }
 
         function overviewStep(d: int): void { ShellState.stepOverview(d); }
         function overviewActivate(): void { ShellState.activateOverview(); }

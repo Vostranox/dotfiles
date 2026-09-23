@@ -8,20 +8,18 @@ RowLayout {
     id: root
     spacing: Theme.gap
 
-    readonly property var wss: Hyprland.workspaces
     readonly property int focused: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : -1
+    readonly property var workspaces: {
+        const v = Hyprland.workspaces ? Hyprland.workspaces.values : [];
+        return v.filter(w => w.id > 0).sort((a, b) => a.id - b.id);
+    }
 
     Repeater {
-        model: 5
+        model: root.workspaces
         delegate: Rectangle {
-            required property int index
-            readonly property int wsId: index + 1
-            readonly property bool active: root.focused === wsId
-            readonly property bool populated: {
-                const v = root.wss ? root.wss.values : [];
-                for (const w of v) if (w.id === wsId) return true;
-                return false;
-            }
+            required property var modelData
+            readonly property bool active: root.focused === modelData.id
+            readonly property bool populated: modelData.toplevels.values.length > 0
 
             implicitWidth: active ? 26 : 12
             implicitHeight: 6
@@ -35,7 +33,7 @@ RowLayout {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + parent.wsId + " })")
+                onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + parent.modelData.id + " })")
             }
         }
     }

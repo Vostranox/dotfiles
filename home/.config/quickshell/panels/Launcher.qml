@@ -10,7 +10,7 @@ PanelWindow {
     id: win
     required property var modelData
     screen: modelData
-    visible: ShellState.panel === "launcher"
+    visible: ShellState.panelOn("launcher", modelData)
 
     anchors { top: true; left: true; right: true; bottom: true }
     color: "transparent"
@@ -114,7 +114,10 @@ PanelWindow {
 
     function launch() {
         const a = results[selected];
-        if (a) { Quickshell.execDetached(a.command); ShellState.close(); }
+        if (!a) return;
+        const cmd = Array.from(a.command);
+        Quickshell.execDetached(a.runInTerminal ? [Quickshell.env("TERMINAL") || "ghostty", "-e"].concat(cmd) : cmd);
+        ShellState.close();
     }
 
     MouseArea { anchors.fill: parent; onClicked: ShellState.close() }

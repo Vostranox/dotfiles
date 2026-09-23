@@ -38,6 +38,7 @@ PanelWindow {
         implicitWidth: tipText.implicitWidth + Theme.pad * 2
         implicitHeight: tipText.implicitHeight + Theme.gap * 1.5
         visible: ShellState.tipVisible && ShellState.tipText !== "" && ShellState.barVisible
+                 && ShellState.onScreen(ShellState.tipScreen, bar.modelData)
         color: "transparent"
         mask: Region {}
 
@@ -121,7 +122,7 @@ PanelWindow {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: ShellState.toggle("control")
+                    onClicked: ShellState.toggle("control", bar.modelData.name)
                 }
             }
         }

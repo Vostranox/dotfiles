@@ -7,7 +7,6 @@ import Quickshell.Io
 import Quickshell.Networking
 import Quickshell.Bluetooth
 import Quickshell.Services.Pipewire
-import Quickshell.Services.Mpris
 import Quickshell.Services.UPower
 import qs
 import qs.ui
@@ -16,7 +15,7 @@ PanelWindow {
     id: win
     required property var modelData
     screen: modelData
-    visible: ShellState.panel === "control"
+    visible: ShellState.panelOn("control", modelData)
 
     anchors { top: true; left: true; right: true; bottom: true }
     color: "transparent"
@@ -42,10 +41,7 @@ PanelWindow {
         if (d.networks) for (const n of d.networks.values) if (n.connected) return n;
         return d.network || null;
     }
-    readonly property var player: {
-        const p = Mpris.players ? Mpris.players.values : [];
-        return p.length ? p[0] : null;
-    }
+    readonly property var player: Media.player
 
     property string page: ShellState.controlPage
     property var pskFor: null
@@ -91,7 +87,7 @@ PanelWindow {
 
     onVisibleChanged: {
         if (visible) { keys.forceActiveFocus(); win.navReset(); }
-        else { win.pskFor = null; }
+        else { win.pskFor = null; ShellState.controlPage = ""; }
     }
     onPageChanged: {
         win.navReset();

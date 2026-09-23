@@ -17,7 +17,7 @@ RowLayout {
 
     function tip(item, txt) {
         const p = item.mapToItem(null, item.width / 2, 0);
-        ShellState.showTip(txt, p.x);
+        ShellState.showTip(txt, p.x, QsWindow.window.screen.name);
     }
 
     readonly property var sink: Pipewire.defaultAudioSink
@@ -37,6 +37,7 @@ RowLayout {
     Repeater {
         model: SystemTray.items
         delegate: Item {
+            id: trayItem
             required property var modelData
             Layout.preferredWidth: 18
             Layout.preferredHeight: 18
@@ -49,9 +50,17 @@ RowLayout {
             }
             MouseArea {
                 anchors.fill: parent
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 cursorShape: Qt.PointingHandCursor
-                onClicked: (m) => m.button === Qt.LeftButton ? modelData.activate() : modelData.secondaryActivate()
+                onClicked: (m) => {
+                    const t = trayItem.modelData;
+                    if (m.button === Qt.MiddleButton) t.secondaryActivate();
+                    else if (m.button === Qt.RightButton || t.onlyMenu) {
+                        if (!t.hasMenu) return;
+                        const p = QsWindow.mapFromItem(trayItem, 0, trayItem.height);
+                        t.display(QsWindow.window, Math.round(p.x), Math.round(p.y));
+                    } else t.activate();
+                }
             }
         }
     }
@@ -86,7 +95,7 @@ RowLayout {
             anchors.margins: -4
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: ShellState.openControlPage("wifi")
+            onClicked: ShellState.openControlPage("wifi", QsWindow.window.screen.name)
             onEntered: root.tip(wifi, !Networking.wifiEnabled ? "Wi-Fi off"
                         : root.activeAp ? root.activeAp.name + "  " + Math.round((root.activeAp.signalStrength || 0) * 100) + "%"
                         : "not connected")
@@ -154,7 +163,7 @@ RowLayout {
             anchors.margins: -4
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: ShellState.openControlPage("power")
+            onClicked: ShellState.openControlPage("power", QsWindow.window.screen.name)
             onEntered: root.tip(bat, Math.round(bat.pct * 100) + "%" + (bat.charging ? " charging" : ""))
             onExited: ShellState.hideTip()
         }

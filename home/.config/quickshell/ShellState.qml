@@ -23,9 +23,10 @@ Singleton {
     property string tipText: ""
     property real   tipX: 0
     property bool   tipVisible: false
+    property string tipScreen: ""
 
-    function showTip(txt, x) { root.tipText = txt; root.tipX = x; root.tipVisible = true; }
-    function hideTip()       { root.tipVisible = false; }
+    function showTip(txt, x, screen) { root.tipText = txt; root.tipX = x; root.tipScreen = screen || ""; root.tipVisible = true; }
+    function hideTip()               { root.tipVisible = false; }
 
     property bool barVisible: true
     property bool keepAwake: false
@@ -34,17 +35,26 @@ Singleton {
     property string panel: ""
     property string controlPage: ""
 
-    function toggle(name) {
-        if (root.panel === name) { root.panel = ""; return; }
+    readonly property string focusedScreen: Hyprland.focusedMonitor ? Hyprland.focusedMonitor.name : ""
+    property string panelScreen: ""
+    function onScreen(name, screen) { return name === "" || name === screen.name; }
+    function panelOn(name, screen)  { return root.panel === name && root.onScreen(root.panelScreen, screen); }
+    function show(name, screen) {
+        root.panelScreen = screen || (root.panel !== "" ? root.panelScreen : root.focusedScreen);
         root.panel = name;
+    }
+
+    function toggle(name, screen) {
+        if (root.panel === name && (!screen || screen === root.panelScreen)) { root.panel = ""; return; }
+        root.show(name, screen);
         if (name === "control") root.controlPage = "";
     }
-    function openControlPage(page) {
+    function openControlPage(page, screen) {
+        root.show("control", screen);
         root.controlPage = page;
-        root.panel = "control";
     }
-    function open(name)   { root.panel = name; }
-    function close()      { root.panel = ""; }
+    function open(name, screen) { root.show(name, screen); }
+    function close()            { root.panel = ""; }
 
     readonly property var overviewApps: {
         const out = root.liveToplevels();
@@ -74,7 +84,7 @@ Singleton {
     function overviewOpen(mode) {
         Hyprland.refreshToplevels();
         root.overviewMode = mode || "focus";
-        root.panel = "overview";
+        root.show("overview");
     }
 
     function overviewPick(t) {
@@ -100,9 +110,10 @@ Singleton {
         root.focusToplevel(t);
     }
 
-    property bool switcherOpen: false
-    property var  switcherApps: []
-    property int  switcherIndex: 0
+    property bool   switcherOpen: false
+    property var    switcherApps: []
+    property int    switcherIndex: 0
+    property string switcherScreen: ""
 
     function liveToplevels() {
         const vals = Hyprland.toplevels ? Hyprland.toplevels.values : [];
@@ -175,11 +186,16 @@ Singleton {
 
         root.switcherApps = out.concat(rest);
         root.switcherIndex = root.switcherApps.length > 1 ? 1 : 0;
+        root.switcherScreen = root.focusedScreen;
         root.switcherOpen = root.switcherApps.length > 0;
     }
 
     function switchStep(delta) {
-        if (!root.switcherOpen) { root.switchOpen(); if (delta > 0) return; }
+        if (!root.switcherOpen) {
+            root.switchOpen();
+            if (delta > 0) return;
+            root.switcherIndex = 0;
+        }
         const n = root.switcherApps.length;
         if (n === 0) return;
         root.switcherIndex = ((root.switcherIndex + delta) % n + n) % n;

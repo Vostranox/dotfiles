@@ -10,7 +10,7 @@ PanelWindow {
     id: win
     required property var modelData
     screen: modelData
-    visible: ShellState.panel === "overview"
+    visible: ShellState.panelOn("overview", modelData)
 
     anchors { top: true; left: true; right: true; bottom: true }
     color: "transparent"

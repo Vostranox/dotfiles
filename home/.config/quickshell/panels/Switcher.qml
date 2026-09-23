@@ -11,7 +11,7 @@ PanelWindow {
 
     required property var modelData
     screen: modelData
-    visible: ShellState.switcherOpen
+    visible: ShellState.switcherOpen && ShellState.onScreen(ShellState.switcherScreen, modelData)
 
     anchors { top: true; left: true; right: true; bottom: true }
     color: "transparent"

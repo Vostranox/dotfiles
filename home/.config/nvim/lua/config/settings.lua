@@ -4,7 +4,6 @@ vim.opt.relativenumber = true
 vim.opt.swapfile       = false
 vim.opt.autoindent     = true
 vim.opt.errorbells     = false
-vim.opt.autoindent     = true
 vim.opt.smartcase      = true
 vim.opt.smartindent    = true
 vim.opt.tabstop        = 4
@@ -21,7 +20,7 @@ vim.opt.cmdheight      = 2
 vim.opt.updatetime     = 300
 vim.opt.wrap           = false
 vim.opt.ignorecase     = true
-vim.opt.shortmess      = 'c'
+vim.opt.shortmess:append('c')
 vim.opt.clipboard      = 'unnamedplus'
 vim.opt.hlsearch       = true
 vim.opt.incsearch      = true
@@ -32,7 +31,6 @@ vim.opt.autoread       = true
 vim.opt.showtabline    = 0
 vim.opt.guicursor      = ''
 vim.opt.cursorline     = true
-vim.opt.termguicolors  = true
 vim.opt.timeout        = true
 vim.opt.timeoutlen     = 300
 vim.opt.splitright     = false
@@ -54,6 +52,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.g.mapleader   = ' '
-vim.g.localleader = ' '
+vim.g.mapleader      = ' '
+vim.g.maplocalleader = ' '
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR><Esc>", { noremap = true, silent = true })

@@ -77,11 +77,16 @@ PanelWindow {
                     }
                 }
 
+                Timer {
+                    id: ackLater
+                    interval: Qt.styleHints.mouseDoubleClickInterval
+                    onTriggered: Notifications.ack(modelData)
+                }
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: Notifications.ack(modelData)
-                    onDoubleClicked: Notifications.activate(modelData)
+                    onClicked: ackLater.restart()
+                    onDoubleClicked: { ackLater.stop(); Notifications.activate(modelData); }
                 }
             }
         }

@@ -50,6 +50,6 @@ Item {
         anchors.margins: -6
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: Recorder.active ? Recorder.stop() : ShellState.toggle("notifications")
+        onClicked: Recorder.active ? Recorder.stop() : ShellState.toggle("notifications", QsWindow.window.screen.name)
     }
 }
