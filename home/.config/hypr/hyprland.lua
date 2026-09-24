@@ -310,7 +310,23 @@ if LAPTOP then
         fingers   = 3,
         direction = "down",
         action    = function()
-            hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell overviewActivate"))
+            hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell close"))
+        end,
+    })
+
+    hl.gesture({
+        fingers   = 4,
+        direction = "up",
+        action    = function()
+            hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell apps"))
+        end,
+    })
+
+    hl.gesture({
+        fingers   = 4,
+        direction = "down",
+        action    = function()
+            hl.dispatch(hl.dsp.exec_cmd("qs ipc call shell close"))
         end,
     })
 end
@@ -403,6 +419,7 @@ hl.bind("SHIFT + Print", hl.dsp.exec_cmd(
 hl.bind(mainMod .. " + C",         hl.dsp.exec_cmd("qs ipc call shell launcher"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("qs ipc call shell control"))
 hl.bind(mainMod .. " + D",         hl.dsp.exec_cmd("qs ipc call shell bar"))
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("qs ipc call shell dock"))
 hl.bind(mainMod .. " + B",         hl.dsp.exec_cmd("qs ipc call shell notifications"))
 hl.bind(mainMod .. " + O",         hl.dsp.exec_cmd("qs ipc call shell overview"))
 

@@ -56,12 +56,22 @@ ShellRoot {
         delegate: Banner {}
     }
 
+    Variants {
+        model: Quickshell.screens
+        delegate: Dock {}
+    }
+
+    Variants {
+        model: Quickshell.screens
+        delegate: AppGrid {}
+    }
+
     PanelWindow {
         id: awakeHolder
-        visible: ShellState.keepAwake
         implicitWidth: 1
         implicitHeight: 1
         color: "transparent"
+        mask: Region {}
         exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Background
         WlrLayershell.namespace: "qs-keepawake"
@@ -109,9 +119,11 @@ ShellRoot {
     IpcHandler {
         target: "shell"
         function launcher(): void { ShellState.toggle("launcher"); }
+        function apps():     void { ShellState.toggle("apps"); }
         function control():  void { ShellState.toggle("control"); }
         function close():    void { ShellState.close(); }
         function bar():      void { ShellState.toggleBar(); }
+        function dock():     void { ShellState.toggleDockAutoHide(); }
         function notifications(): void { ShellState.toggle("notifications"); }
         function clearNotifications(): void { Notifications.clearAll(); }
         function wifiPage(): void { ShellState.openControlPage("wifi"); }

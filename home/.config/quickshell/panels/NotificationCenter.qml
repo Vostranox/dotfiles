@@ -98,6 +98,7 @@ PanelWindow {
             }
 
             Flickable {
+                id: flick
                 visible: Notifications.count > 0
                 Layout.fillWidth: true
                 Layout.preferredHeight: Math.min(rows.implicitHeight, win.height * 0.7 - 110)
@@ -200,5 +201,7 @@ PanelWindow {
                 }
             }
         }
+
+        WheelScroll { anchors.fill: parent; view: flick }
     }
 }

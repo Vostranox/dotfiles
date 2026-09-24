@@ -29,8 +29,17 @@ Singleton {
     function hideTip()               { root.tipVisible = false; }
 
     property bool barVisible: true
-    property bool keepAwake: false
+    property alias keepAwake: persist.keepAwake
     function toggleBar() { root.barVisible = !root.barVisible; }
+
+    PersistentProperties {
+        id: persist
+        reloadableId: "shellState"
+        property bool keepAwake: false
+    }
+
+    property bool dockAutoHide: Theme.dockAutoHide
+    function toggleDockAutoHide() { root.dockAutoHide = !root.dockAutoHide; }
 
     property string panel: ""
     property string controlPage: ""
@@ -95,13 +104,21 @@ Singleton {
         else                      root.overviewFocus(t);
     }
 
-    function focusToplevel(t) {
+    function focusToplevel(t, keepCursor) {
         if (!t) return false;
         const o = t.lastIpcObject;
         if (!o || o.mapped !== true) return false;
+        const steps = [];
         if (o.workspace && o.workspace.id !== undefined)
-            Hyprland.dispatch("hl.dsp.focus({ workspace = " + o.workspace.id + " })");
-        Hyprland.dispatch("hl.dsp.focus({ window = \"address:0x" + t.address + "\" })");
+            steps.push("hl.dsp.focus({ workspace = " + o.workspace.id + " })");
+        steps.push("hl.dsp.focus({ window = \"address:0x" + t.address + "\" })");
+        if (!keepCursor) {
+            for (const s of steps) Hyprland.dispatch(s);
+            return true;
+        }
+        Hyprland.dispatch("(function() local p = hl.get_cursor_pos(); "
+            + steps.map(s => "hl.dispatch(" + s + "); ").join("")
+            + "hl.dispatch(hl.dsp.cursor.move({ x = p.x, y = p.y })); return hl.dsp.no_op() end)()");
         return true;
     }
 

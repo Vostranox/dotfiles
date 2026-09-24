@@ -5,6 +5,7 @@ import Quickshell.Wayland
 import Quickshell.Widgets
 import Quickshell.Io
 import qs
+import qs.ui
 
 PanelWindow {
     id: win
@@ -115,8 +116,7 @@ PanelWindow {
     function launch() {
         const a = results[selected];
         if (!a) return;
-        const cmd = Array.from(a.command);
-        Quickshell.execDetached(a.runInTerminal ? [Quickshell.env("TERMINAL") || "ghostty", "-e"].concat(cmd) : cmd);
+        Apps.launch(a);
         ShellState.close();
     }
 
@@ -250,5 +250,7 @@ PanelWindow {
                 }
             }
         }
+
+        WheelScroll { anchors.fill: parent; view: list }
     }
 }

@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
 import Quickshell
+import Quickshell.Io
 
 Singleton {
     id: root
@@ -49,5 +50,46 @@ Singleton {
         }
         const ttl = t && t.title ? String(t.title) : "";
         return ttl !== "" ? ttl.slice(0, 14) : "app";
+    }
+
+    function entryFor(t) {
+        const cls = root.appClass(t);
+        return cls ? DesktopEntries.heuristicLookup(cls) : null;
+    }
+
+    function entryIcon(e) {
+        if (!e || !e.icon) return "";
+        if (e.icon.startsWith("/")) return "file://" + e.icon;
+        return Quickshell.iconPath(e.icon, true);
+    }
+
+    function launch(e) {
+        if (!e) return;
+        const cmd = Array.from(e.command);
+        Quickshell.execDetached(e.runInTerminal ? [Quickshell.env("TERMINAL") || "ghostty", "-e"].concat(cmd) : cmd);
+    }
+
+    readonly property var pinned: Array.from(pins.pinned)
+    function isPinned(id) { return root.pinned.indexOf(id) >= 0; }
+    function togglePin(id) {
+        pins.pinned = root.isPinned(id) ? root.pinned.filter(x => x !== id) : root.pinned.concat([id]);
+    }
+    function movePin(id, to) {
+        const l = root.pinned.filter(x => x !== id);
+        l.splice(to, 0, id);
+        pins.pinned = l;
+    }
+
+    FileView {
+        path: Quickshell.statePath("dock.json")
+        watchChanges: true
+        onFileChanged: reload()
+        onAdapterUpdated: writeAdapter()
+        onLoadFailed: (err) => { if (err === FileViewError.FileNotFound) Qt.callLater(() => writeAdapter()); }
+
+        JsonAdapter {
+            id: pins
+            property list<string> pinned: ["emacs", "com.mitchellh.ghostty", "zen"]
+        }
     }
 }

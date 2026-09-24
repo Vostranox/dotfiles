@@ -157,7 +157,7 @@ PanelWindow {
         contentHeight: flow.implicitHeight
         clip: true
         boundsBehavior: Flickable.StopAtBounds
-        Behavior on contentY { NumberAnimation { duration: Theme.animFast; easing.type: Easing.OutQuint } }
+        Behavior on contentY { enabled: !wheel.active; NumberAnimation { duration: Theme.animFast; easing.type: Easing.OutQuint } }
 
     Flow {
         id: flow
@@ -243,4 +243,6 @@ PanelWindow {
         }
     }
     }
+
+    WheelScroll { id: wheel; anchors.fill: flick; view: flick }
 }
