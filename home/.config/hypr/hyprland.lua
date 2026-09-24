@@ -84,10 +84,23 @@ hl.env("XMODIFIERS", "@im=fcitx")
 ---- LOOK AND FEEL ----
 -----------------------
 
+local GAPS_IN, GAPS_OUT = 8, 20
+local BAR_GAP, DOCK_GAP  = 2 * GAPS_IN, 2 * GAPS_IN
+
+function shellGaps(bar, dock)
+    hl.config({ general = { gaps_out = {
+        top    = bar and BAR_GAP or GAPS_OUT,
+        right  = GAPS_OUT,
+        bottom = dock and DOCK_GAP or GAPS_OUT,
+        left   = GAPS_OUT,
+    } } })
+    return hl.dsp.event("shellgaps," .. tostring(bar) .. "," .. tostring(dock))
+end
+
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 20,
+        gaps_in  = GAPS_IN,
+        gaps_out = GAPS_OUT,
 
         border_size = 1,
 

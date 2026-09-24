@@ -10,9 +10,8 @@ PanelWindow {
     required property var modelData
     screen: modelData
 
-    readonly property int inset:   3
-    readonly property int islandH: Theme.barHeight - inset * 2
-    readonly property int edge:    Theme.pad
+    readonly property int islandH: Theme.barHeight - Theme.gap
+    readonly property int edge: 20
 
     anchors { top: true; left: true; right: true }
     visible: ShellState.barVisible
@@ -34,7 +33,7 @@ PanelWindow {
         id: tip
         anchor.window: bar
         anchor.rect.x: Math.round(Math.max(8, Math.min(bar.width - width - 8, ShellState.tipX - width / 2)))
-        anchor.rect.y: Theme.barHeight + 4
+        anchor.rect.y: Theme.barHeight + Theme.gap
         implicitWidth: tipText.implicitWidth + Theme.pad * 2
         implicitHeight: tipText.implicitHeight + Theme.gap * 1.5
         visible: ShellState.tipVisible && ShellState.tipText !== "" && ShellState.barVisible
@@ -60,7 +59,7 @@ PanelWindow {
     }
 
     component Island: Rectangle {
-        y: bar.inset
+        y: Theme.gap
         implicitHeight: bar.islandH
         radius: Theme.radius
         color: Theme.bg

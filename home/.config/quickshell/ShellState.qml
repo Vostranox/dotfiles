@@ -41,6 +41,16 @@ Singleton {
     property bool dockAutoHide: Theme.dockAutoHide
     function toggleDockAutoHide() { root.dockAutoHide = !root.dockAutoHide; }
 
+    function syncShellGaps() { Hyprland.dispatch("shellGaps(" + root.barVisible + ", " + !root.dockAutoHide + ")"); }
+    onBarVisibleChanged: root.syncShellGaps()
+    onDockAutoHideChanged: root.syncShellGaps()
+    Component.onCompleted: root.syncShellGaps()
+
+    Connections {
+        target: Hyprland
+        function onRawEvent(e) { if (e.name === "configreloaded") root.syncShellGaps(); }
+    }
+
     property string panel: ""
     property string controlPage: ""
 

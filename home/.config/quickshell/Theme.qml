@@ -17,7 +17,7 @@ Singleton {
     readonly property string font:     "JetBrainsMono Nerd Font"
 
     readonly property int fontSize:    13
-    readonly property int barHeight:   34
+    readonly property int barHeight:   36
     readonly property int radius:      8
     readonly property int pad:         14
     readonly property int gap:         8
@@ -36,7 +36,7 @@ Singleton {
     readonly property int dockSlot:    dockIcon + dockPad * 2
     readonly property int dockPitch:   dockSlot + dockSpacing
     readonly property int dockBodyH:   dockInset + dockSlot + Math.round(10 * dockScale)
-    readonly property int dockEdge:    Math.round(gap * dockScale)
+    readonly property int dockEdge:    gap
     readonly property int dockSide:    Math.max(0, dockInset - dockSpacing / 2)
     readonly property int dockRadius:  Math.round(radius * 2 * dockScale)
 
