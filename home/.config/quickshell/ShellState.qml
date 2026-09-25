@@ -91,6 +91,7 @@ Singleton {
 
     signal stepOverview(int d)
     signal activateOverview()
+    signal resumed()
 
     property bool gesturesSwapped: false
     onPanelChanged: {

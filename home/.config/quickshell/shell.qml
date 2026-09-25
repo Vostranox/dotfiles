@@ -148,5 +148,7 @@ ShellRoot {
         function switchPrev(): void { ShellState.switchStep(-1); }
         function switchCommit(): void { ShellState.switchCommit(); }
         function switchCancel(): void { ShellState.switchCancel(); }
+
+        function resumed(): void { ShellState.resumed(); }
     }
 }

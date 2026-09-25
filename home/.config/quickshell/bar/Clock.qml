@@ -28,6 +28,10 @@ Item {
         Text {
             anchors.verticalCenter: parent.verticalCenter
             SystemClock { id: clock; precision: SystemClock.Minutes }
+            Connections {
+                target: ShellState
+                function onResumed() { clock.enabled = false; clock.enabled = true; }
+            }
             text: Qt.formatDateTime(clock.date, "ddd d MMM  HH:mm")
             color: ShellState.panel === "notifications" ? Theme.accent : Theme.text
             font.family: Theme.font
