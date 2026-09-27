@@ -24,7 +24,7 @@ PanelWindow {
         id: stack
         anchors {
             top: parent.top; horizontalCenter: parent.horizontalCenter
-            topMargin: (ShellState.barVisible ? Theme.barHeight : 0) + Theme.gap
+            topMargin: (ShellState.barVisible ? Theme.barSpace : 0) + Theme.gap
         }
         width: 420
         spacing: Theme.gap

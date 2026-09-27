@@ -10,13 +10,12 @@ PanelWindow {
     required property var modelData
     screen: modelData
 
-    readonly property int islandH: Theme.barHeight - Theme.gap
     readonly property int edge: 20
 
     anchors { top: true; left: true; right: true }
     visible: ShellState.barVisible
-    implicitHeight: Theme.barHeight
-    exclusiveZone: ShellState.barVisible ? Theme.barHeight : 0
+    implicitHeight: Theme.barSpace
+    exclusiveZone: ShellState.barVisible ? Theme.barSpace : 0
     color: "transparent"
 
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
@@ -33,7 +32,7 @@ PanelWindow {
         id: tip
         anchor.window: bar
         anchor.rect.x: Math.round(Math.max(8, Math.min(bar.width - width - 8, ShellState.tipX - width / 2)))
-        anchor.rect.y: Theme.barHeight + Theme.gap
+        anchor.rect.y: Theme.barSpace + Theme.gap
         implicitWidth: tipText.implicitWidth + Theme.pad * 2
         implicitHeight: tipText.implicitHeight + Theme.gap * 1.5
         visible: ShellState.tipVisible && ShellState.tipText !== "" && ShellState.barVisible
@@ -60,7 +59,7 @@ PanelWindow {
 
     component Island: Rectangle {
         y: Theme.gap
-        implicitHeight: bar.islandH
+        implicitHeight: Theme.barHeight
         radius: Theme.radius
         color: Theme.bg
         border.color: Theme.border

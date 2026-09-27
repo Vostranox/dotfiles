@@ -17,10 +17,11 @@ Singleton {
     readonly property string font:     "JetBrainsMono Nerd Font"
 
     readonly property int fontSize:    13
-    readonly property int barHeight:   36
+    readonly property int barHeight:   28   // the bar itself; it floats `gap` below the screen edge
     readonly property int radius:      8
     readonly property int pad:         14
-    readonly property int gap:         8
+    readonly property int gap:         12
+    readonly property int barSpace:    gap + barHeight   // what the bar takes from the top of the screen
 
     readonly property real scrollSpeed: 2.5     // touchpad scrolling in the launcher and app grid
 

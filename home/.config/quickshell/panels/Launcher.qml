@@ -125,7 +125,7 @@ PanelWindow {
     Rectangle {
         id: card
         anchors.horizontalCenter: parent.horizontalCenter
-        readonly property int topInset: ShellState.barVisible ? Theme.barHeight : 0
+        readonly property int topInset: ShellState.barVisible ? Theme.barSpace : 0
         y: topInset + Math.round((parent.height - topInset) * 0.18)
         Behavior on y { NumberAnimation { duration: Theme.animFast; easing.type: Easing.OutQuint } }
         width: 620

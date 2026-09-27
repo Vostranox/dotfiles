@@ -84,7 +84,7 @@ hl.env("XMODIFIERS", "@im=fcitx")
 ---- LOOK AND FEEL ----
 -----------------------
 
-local GAPS_IN, GAPS_OUT = 8, 20
+local GAPS_IN, GAPS_OUT = 12, 26
 local BAR_GAP, DOCK_GAP  = 2 * GAPS_IN, 2 * GAPS_IN
 
 function shellGaps(bar, dock)

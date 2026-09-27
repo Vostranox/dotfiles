@@ -60,7 +60,7 @@ PanelWindow {
         id: card
         anchors {
             top: parent.top; horizontalCenter: parent.horizontalCenter
-            topMargin: (ShellState.barVisible ? Theme.barHeight : 0) + Theme.gap
+            topMargin: (ShellState.barVisible ? Theme.barSpace : 0) + Theme.gap
         }
         Behavior on anchors.topMargin { NumberAnimation { duration: Theme.animFast; easing.type: Easing.OutQuint } }
         width: 420

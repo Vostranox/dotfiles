@@ -116,7 +116,7 @@ PanelWindow {
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
-            topMargin: (ShellState.barVisible ? Theme.barHeight : 0) + Theme.pad * 2
+            topMargin: (ShellState.barVisible ? Theme.barSpace : 0) + Theme.pad * 2
         }
         width: Math.min(520, parent.width * 0.5)
         height: 46
