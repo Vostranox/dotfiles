@@ -14,3 +14,4 @@ fi
 tmux source-file "$TMUX_DIR/tmux.conf"
 tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_DIR/plugins/"
 "$TMUX_DIR/plugins/tpm/bin/install_plugins"
+tmux source-file "$TMUX_DIR/tmux.conf"

@@ -15,6 +15,8 @@ quick-terminal-size               = 50%, 100%
 
 keybind = global:cmd+`=toggle_quick_terminal
 keybind = ctrl+u=paste_from_clipboard
+keybind = ctrl+a=csi:B
+keybind = ctrl+e=csi:A
 
 cursor-style               = block
 cursor-style-blink         = false

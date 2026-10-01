@@ -1,47 +1,47 @@
 fish_add_path ~/.cargo/bin ~/.local/bin ~/bin
 
-set -gx EDITOR emacsclient
-set -gx VISUAL emacsclient
-set -gx TERMINAL ghostty
+if command -q emacsclient
+    set -gx EDITOR emacsclient
+    set -gx VISUAL emacsclient
+end
+if command -q ghostty
+    set -gx TERMINAL ghostty
+end
 
-set -gx FZF_CTRL_T_COMMAND "$HOME/.cargo/bin/fd --sort-by-depth --full-path --hidden --no-ignore --color=never --exclude .git"
-set -gx FZF_DEFAULT_OPTS "--layout=reverse --info=inline-right --border=rounded --margin=1 --padding=0,1 -i --pointer=▌ --marker=┃ --highlight-line --color=bg:#181818,bg+:#282828,fg:#8a8a95,fg+:#c8c8d5,hl:#95a99f,hl+:#95a99f,query:#c8c8d5,prompt:#95a99f,pointer:#95a99f,marker:#e8bf66,info:#6b7570,spinner:#6b7570,header:#6b7570,border:#3e3b3c,gutter:#181818,scrollbar:#3e3b3c"
+__adh_fish_configure_fzf
 set -gx EZA_CONFIG_DIR "$HOME/.config/eza"
 
 if status is-interactive
     set -g fish_greeting
 
+    # Older Fish releases call this theme "None"; newer ones use "none".
+    set -l plain_theme (fish_config theme list 2>/dev/null | string match -ri '^none$')
+    if set -q plain_theme[1]
+        fish_config theme choose "$plain_theme[1]"
+    end
+    set -g fish_color_comment normal
+    set -g fish_autosuggestion_enabled 0
+
     function __sync_history --on-event fish_prompt
-        history merge
+        if test "$fish_private_mode" != 1
+            builtin history merge
+            __adh_import_bash_history
+        end
     end
 
-    alias ls 'eza -alg --color=always --group-directories-first'
-    alias ll 'eza -lg --color=always --group-directories-first'
-    alias e 'emacsclient -n'
-    abbr -a vim nvim
-    abbr -a tx 'tmux new -As dev'
+    if command -q eza
+        alias ls 'eza -alg --color=always --group-directories-first'
+        alias ll 'eza -lg --color=always --group-directories-first'
+    else
+        alias ll 'ls -l'
+    end
+    command -q emacsclient; and alias e 'emacsclient -n'
+    command -q nvim; and abbr -a vim nvim
+    command -q tmux; and abbr -a tx 'tmux new -As dev'
     abbr -a .. 'cd ..'
 
-    type -q fzf; and fzf --fish | source
     type -q starship; and starship init fish | source
     type -q zoxide; and zoxide init --cmd cd fish | source
 
-    bind alt-h backward-char
-    bind alt-i forward-char
-    bind alt-d backward-word
-    bind alt-c forward-word
-
-    bind alt-f beginning-of-line
-    bind alt-o end-of-line
-    bind alt-s kill-word
-    bind alt-t backward-kill-word
-    bind alt-T backward-kill-line
-    bind alt-S kill-line
-
-    bind ctrl-alt-f downcase-word
-    bind ctrl-alt-o capitalize-word
-    bind ctrl-alt-u upcase-word
-
-    bind ctrl-h backward-kill-word
-    bind ctrl-backspace backward-kill-word
+    set -g fish_key_bindings adh_fish_key_bindings
 end

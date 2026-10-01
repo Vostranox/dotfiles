@@ -10,7 +10,7 @@ PanelWindow {
     required property var modelData
     screen: modelData
 
-    readonly property int edge: 20
+    readonly property int edge: 26
 
     anchors { top: true; left: true; right: true }
     visible: ShellState.barVisible
