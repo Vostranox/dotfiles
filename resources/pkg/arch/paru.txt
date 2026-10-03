@@ -57,6 +57,7 @@ hyprpaper
 hyprpolkitagent
 ifuse
 krita
+lazygit
 lib32-mesa
 lib32-nvidia-utils
 lib32-opencl-nvidia
@@ -113,6 +114,7 @@ upower
 usbmuxd
 vlc
 vlc-plugin-ffmpeg
+vscodium-bin
 wf-recorder
 wireplumber
 wl-clipboard
