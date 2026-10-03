@@ -19,7 +19,7 @@ PanelWindow {
     color: "transparent"
 
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.layer: WlrLayer.Bottom
     WlrLayershell.namespace: "qs-bar"
 
     mask: Region {

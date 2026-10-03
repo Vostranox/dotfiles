@@ -195,8 +195,9 @@ Singleton {
 
     function switchOpen() {
         Hyprland.refreshToplevels();
-
-        const live = root.liveToplevels();
+        const live = root.liveToplevels().filter(
+            t => Apps.appClass(t) != "com.local.quake"
+        );
         const byAddr = {};
         for (const t of live) byAddr[t.address] = t;
 
@@ -213,7 +214,8 @@ Singleton {
         });
 
         root.switcherApps = out.concat(rest);
-        root.switcherIndex = root.switcherApps.length > 1 ? 1 : 0;
+        const first = root.switcherApps[0];
+        root.switcherIndex = first && first.address === root.mru[0] && root.switcherApps.length > 1 ? 1 : 0;
         root.switcherScreen = root.focusedScreen;
         root.switcherOpen = root.switcherApps.length > 0;
     }

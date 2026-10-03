@@ -151,23 +151,24 @@ hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1} 
 
 hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
 
-hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
-hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
-hl.animation({ leaf = "windows",       enabled = true,  speed = 4.79, spring = "easy" })
-hl.animation({ leaf = "windowsIn",     enabled = true,  speed = 4.1,  spring = "easy",         style = "popin 87%" })
-hl.animation({ leaf = "windowsOut",    enabled = true,  speed = 1.49, bezier = "linear",       style = "popin 87%" })
-hl.animation({ leaf = "fadeIn",        enabled = true,  speed = 1.73, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeOut",       enabled = true,  speed = 1.46, bezier = "almostLinear" })
-hl.animation({ leaf = "fade",          enabled = true,  speed = 3.03, bezier = "quick" })
-hl.animation({ leaf = "layers",        enabled = true,  speed = 3.81, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn",      enabled = true,  speed = 4,    bezier = "easeOutQuint", style = "fade" })
-hl.animation({ leaf = "layersOut",     enabled = true,  speed = 1.5,  bezier = "linear",       style = "fade" })
-hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces",    enabled = true,  speed = 1.94, bezier = "almostLinear", style = "slide" })
-hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "almostLinear", style = "slide" })
-hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "slide" })
-hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
+hl.animation({ leaf = "global",           enabled = true, speed = 10,   bezier = "default" })
+hl.animation({ leaf = "border",           enabled = true, speed = 5.39, bezier = "easeOutQuint" })
+hl.animation({ leaf = "windows",          enabled = true, speed = 4.79, spring = "easy" })
+hl.animation({ leaf = "windowsIn",        enabled = true, speed = 4.1,  spring = "easy",         style = "popin 87%" })
+hl.animation({ leaf = "windowsOut",       enabled = true, speed = 1.49, bezier = "linear",       style = "popin 87%" })
+hl.animation({ leaf = "fadeIn",           enabled = true, speed = 1.73, bezier = "almostLinear" })
+hl.animation({ leaf = "fadeOut",          enabled = true, speed = 1.46, bezier = "almostLinear" })
+hl.animation({ leaf = "fade",             enabled = true, speed = 3.03, bezier = "quick" })
+hl.animation({ leaf = "layers",           enabled = true, speed = 3.81, bezier = "easeOutQuint" })
+hl.animation({ leaf = "layersIn",         enabled = true, speed = 4,    bezier = "easeOutQuint", style = "fade" })
+hl.animation({ leaf = "layersOut",        enabled = true, speed = 1.5,  bezier = "linear",       style = "fade" })
+hl.animation({ leaf = "fadeLayersIn",     enabled = true, speed = 1.79, bezier = "almostLinear" })
+hl.animation({ leaf = "fadeLayersOut",    enabled = true, speed = 1.39, bezier = "almostLinear" })
+hl.animation({ leaf = "workspaces",       enabled = true, speed = 1.94, bezier = "almostLinear", style = "slide" })
+hl.animation({ leaf = "workspacesIn",     enabled = true, speed = 1.21, bezier = "almostLinear", style = "slide" })
+hl.animation({ leaf = "workspacesOut",    enabled = true, speed = 1.94, bezier = "almostLinear", style = "slide" })
+hl.animation({ leaf = "zoomFactor",       enabled = true, speed = 7,    bezier = "quick" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 2.5,  bezier = "easeOutQuint", style = "slidefadevert -100%" })
 
 local smartGaps = {
     hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 }),
@@ -434,7 +435,8 @@ hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("qs ipc call shell control"))
 hl.bind(mainMod .. " + D",         hl.dsp.exec_cmd("qs ipc call shell bar"))
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("qs ipc call shell dock"))
 hl.bind(mainMod .. " + B",         hl.dsp.exec_cmd("qs ipc call shell notifications"))
-hl.bind(mainMod .. " + O",         hl.dsp.exec_cmd("qs ipc call shell overview"))
+hl.bind(mainMod .. " + U",         hl.dsp.exec_cmd("qs ipc call shell overview"))
+hl.bind(mainMod .. " + O",         hl.dsp.workspace.toggle_special("quake"))
 
 hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("fcitx5-remote -t"))
 
@@ -484,4 +486,22 @@ hl.window_rule({
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+hl.workspace_rule({
+    workspace = "special:quake",
+    on_created_empty =
+        "ghostty --class=com.local.quake --gtk-single-instance=false --background-opacity=0.7 --window-padding-balance=true --window-padding-y=6",
+})
+
+hl.window_rule({
+    name = "quake-terminal",
+    match = { class = "com[.]local[.]quake" },
+    workspace = "special:quake silent",
+    float = true,
+    size = { "monitor_w", "monitor_h * 0.5" },
+    move = { 0, 0 },
+    border_size = 0,
+    rounding = 0,
+    animation = "slide top",
 })
