@@ -152,6 +152,7 @@ Singleton {
             if (!o) continue;
             if (o.mapped !== true) continue;
             if (!t.wayland) continue;
+            if (Apps.appClass(t) === "com.local.quake") continue;
             out.push(t);
         }
         return out;
@@ -195,9 +196,7 @@ Singleton {
 
     function switchOpen() {
         Hyprland.refreshToplevels();
-        const live = root.liveToplevels().filter(
-            t => Apps.appClass(t) != "com.local.quake"
-        );
+        const live = root.liveToplevels();
         const byAddr = {};
         for (const t of live) byAddr[t.address] = t;
 
