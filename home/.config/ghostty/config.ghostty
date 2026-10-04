@@ -1,19 +1,12 @@
-macos-option-as-alt = true
-
 window-decoration      = none
 window-padding-y       = 10
 window-padding-balance = true
 window-padding-color   = extend
 
 background-blur    = true
-background-opacity = 1.0
+background-opacity = 0.7
 
-quick-terminal-position           = bottom
-quick-terminal-autohide           = true
-quick-terminal-animation-duration = 0.2
-quick-terminal-size               = 50%, 100%
 
-keybind = global:cmd+`=toggle_quick_terminal
 keybind = ctrl+u=paste_from_clipboard
 keybind = ctrl+a=csi:B
 keybind = ctrl+e=csi:A
@@ -30,3 +23,14 @@ foreground           = #c8c8d5
 cursor-color         = #e8bf66
 selection-background = #3e3b3c
 selection-foreground = #c8c8d5
+
+# For macOS
+macos-option-as-alt = true
+
+quick-terminal-position           = top
+quick-terminal-autohide           = true
+quick-terminal-animation-duration = 0.2
+quick-terminal-size               = 55%, 100%
+
+keybind = global:cmd+`=toggle_quick_terminal
+keybind = cmd+shift+o=toggle_background_opacity
