@@ -14,7 +14,6 @@ set -gx EZA_CONFIG_DIR "$HOME/.config/eza"
 if status is-interactive
     set -g fish_greeting
 
-    # Older Fish releases call this theme "None"; newer ones use "none".
     set -l plain_theme (fish_config theme list 2>/dev/null | string match -ri '^none$')
     if set -q plain_theme[1]
         fish_config theme choose "$plain_theme[1]"
