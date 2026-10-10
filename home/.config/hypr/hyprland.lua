@@ -499,9 +499,16 @@ hl.window_rule({
     match = { class = "com[.]local[.]quake" },
     workspace = "special:quake silent",
     float = true,
-    size = { "monitor_w", "monitor_h * 0.5" },
+    size = { "monitor_w", "monitor_h * 0.55" },
     move = { 0, 0 },
     border_size = 0,
     rounding = 0,
     animation = "slide top",
+})
+
+hl.window_rule({
+    name  = "quake-spawned-windows",
+    match = { workspace = "special:quake", class = "negative:com[.]local[.]quake" },
+
+    workspace = "m+0",
 })
