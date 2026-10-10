@@ -53,7 +53,7 @@ end
 
 hl.on("hyprland.start", function ()
   hl.exec_cmd("protonmail-bridge --no-window")
-  hl.exec_cmd("sh -c 'for i in $(seq 40); do busctl --user status org.kde.StatusNotifierWatcher >/dev/null 2>&1 && break; sleep 0.25; done; exec protonvpn-app --start-minimized'")
+  hl.exec_cmd("sh -c 'for i in $(seq 40); do busctl --user status org.kde.StatusNotifierWatcher >/dev/null 2>&1 && break; sleep 0.25; done; exec protonvpn-app'")
   startHypridle()
   hl.exec_cmd("hyprpaper")
   hl.exec_cmd("qs --no-duplicate --daemonize")
