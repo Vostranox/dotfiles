@@ -4,8 +4,7 @@ window-padding-balance = true
 window-padding-color   = extend
 
 background-blur    = true
-background-opacity = 0.7
-
+background-opacity = 1.0
 
 keybind = ctrl+u=paste_from_clipboard
 keybind = ctrl+a=csi:B
