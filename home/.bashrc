@@ -17,6 +17,10 @@ alias ..='cd ..'
 alias e='emacsclient -n'
 alias tx='tmux new -As dev'
 
+if ! command -v hx >/dev/null 2>&1 && command -v helix >/dev/null 2>&1; then
+    alias hx='helix'
+fi
+
 command -v fzf >/dev/null && eval "$(fzf --bash)"
 command -v starship >/dev/null && eval "$(starship init bash)"
 command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"

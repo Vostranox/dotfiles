@@ -35,6 +35,9 @@ if status is-interactive
         alias ll 'ls -l'
     end
     command -q emacsclient; and alias e 'emacsclient -n'
+    if not type -q hx; and command -q helix
+        alias hx helix
+    end
     command -q nvim; and abbr -a vim nvim
     command -q tmux; and abbr -a tx 'tmux new -As dev'
     abbr -a .. 'cd ..'

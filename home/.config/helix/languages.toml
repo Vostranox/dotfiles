@@ -1,0 +1,10 @@
+[language-server.clangd]
+args = ["--header-insertion=never"]
+
+[language-server.glsld]
+command = "glsld"
+
+[[language]]
+name = "glsl"
+language-servers = ["glsld"]
+roots = ["glsld.toml", ".git"]

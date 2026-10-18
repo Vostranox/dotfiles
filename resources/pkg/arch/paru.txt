@@ -49,6 +49,7 @@ gthumb
 gvfs
 gvfs-afc
 haskell-language-server
+helix
 htop
 hypridle
 hyprland
