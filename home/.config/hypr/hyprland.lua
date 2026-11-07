@@ -490,9 +490,17 @@ hl.window_rule({
 
 hl.workspace_rule({
     workspace = "special:quake",
-    on_created_empty =
-        "ghostty --class=com.local.quake --gtk-single-instance=false --background-opacity=0.7 --window-padding-balance=true --window-padding-y=6",
+    gaps_out = 0,
+    float_gaps = 0,
 })
+
+hl.on("workspace.created", function (workspace)
+    if workspace.name ~= "special:quake" or not workspace.is_empty then return end
+    hl.exec_cmd(
+        "ghostty --class=com.local.quake --gtk-single-instance=false --window-decoration=none --background-opacity=0.7 --window-padding-balance=true",
+        { workspace = workspace.name .. " silent" }
+    )
+end)
 
 hl.window_rule({
     name = "quake-terminal",
@@ -500,11 +508,20 @@ hl.window_rule({
     workspace = "special:quake silent",
     float = true,
     size = { "monitor_w", "monitor_h * 0.55" },
-    move = { 0, 0 },
     border_size = 0,
     rounding = 0,
     animation = "slide top",
 })
+
+hl.on("window.open", function (window)
+    if window.class ~= "com.local.quake" then return end
+    hl.dispatch(hl.dsp.window.move({
+        window = window,
+        x = 0,
+        y = 0,
+        relative = false,
+    }))
+end)
 
 hl.window_rule({
     name  = "quake-spawned-windows",
